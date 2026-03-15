@@ -1,7 +1,7 @@
-import {Offer} from '../types/offer.ts';
-import {getRatingPercent} from '../utils.ts';
+import {Offer} from '../../types/offer.ts';
+import {getRatingPercent} from '../../utils.ts';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../const.ts';
+import {AppRoute} from '../../const.ts';
 
 type FavoriteOfferCardProps = {
   offer: Offer;

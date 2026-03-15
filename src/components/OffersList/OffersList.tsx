@@ -1,5 +1,5 @@
-import {Offer} from '../types/offer.ts';
-import {OfferCard} from './OfferCard.tsx';
+import {Offer} from '../../types/offer.ts';
+import {OfferCard} from '../OfferCard/OfferCard.tsx';
 
 type ListOffersProps = {
   offers: Offer[];

@@ -1,4 +1,4 @@
-import {ReviewForm} from '../components/ReviewForm.tsx';
+import {ReviewForm} from '../../components/ReviewForm/ReviewForm.tsx';
 
 export function OfferPage() {
   return (

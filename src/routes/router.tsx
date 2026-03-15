@@ -1,12 +1,12 @@
 import {createBrowserRouter} from 'react-router-dom';
 import App from '../App.tsx';
-import {MainPage} from '../pages/MainPage.tsx';
-import {LoginPage} from '../pages/LoginPage.tsx';
-import {OfferPage} from '../pages/OfferPage.tsx';
+import {MainPage} from '../pages/MainPage/MainPage.tsx';
+import {LoginPage} from '../pages/LoginPage/LoginPage.tsx';
+import {OfferPage} from '../pages/OfferPage/OfferPage.tsx';
 import {NotFoundPage} from '../pages/NotFoundPage/NotFoundPage.tsx';
 import PrivateRoute from './privateRoute.tsx';
 import {AppRoute, AuthorizationStatus} from '../const.ts';
-import {FavoritesPage} from '../pages/FavoritesPage.tsx';
+import {FavoritesPage} from '../pages/FavoritesPage/FavoritesPage.tsx';
 import {Offers} from '../types/offer.ts';
 
 const getRouter = (offers: Offers) => createBrowserRouter([

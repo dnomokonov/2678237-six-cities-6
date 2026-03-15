@@ -1,7 +1,7 @@
 import {Link, useOutletContext} from 'react-router-dom';
-import {Offers, OffersByCity} from '../types/offer.ts';
-import {AppRoute} from '../const.ts';
-import {FavoritesList} from '../components/FavoritesList.tsx';
+import {Offers, OffersByCity} from '../../types/offer.ts';
+import {AppRoute} from '../../const.ts';
+import {FavoritesList} from '../../components/FavoritesList/FavoritesList.tsx';
 
 export function FavoritesPage() {
   const offers = useOutletContext<Offers>();

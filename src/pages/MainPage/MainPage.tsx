@@ -1,6 +1,6 @@
 import {useOutletContext} from 'react-router-dom';
-import {OffersList} from '../components/OffersList.tsx';
-import {Offer, Offers} from '../types/offer.ts';
+import {OffersList} from '../../components/OffersList/OffersList.tsx';
+import {Offer, Offers} from '../../types/offer.ts';
 import {useState} from 'react';
 
 export function MainPage() {

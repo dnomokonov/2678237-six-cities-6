@@ -1,5 +1,5 @@
 import {ChangeEvent, FormEvent, Fragment, useState} from 'react';
-import {DEFAULT_RATING, MIN_LENGTH} from '../const.ts';
+import {DEFAULT_RATING, MIN_LENGTH} from '../../const.ts';
 
 export function ReviewForm() {
   const [formData, setFormData] = useState({

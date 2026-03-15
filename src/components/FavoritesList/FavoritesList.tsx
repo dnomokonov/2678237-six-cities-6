@@ -1,5 +1,5 @@
-import {OffersByCity} from '../types/offer.ts';
-import {FavoriteOfferCard} from './FavoriteOfferCard.tsx';
+import {OffersByCity} from '../../types/offer.ts';
+import {FavoriteOfferCard} from '../FavoriteOfferCard/FavoriteOfferCard.tsx';
 
 type FavoritesListProps = {
   offersByCity: OffersByCity;
