@@ -1,6 +1,16 @@
-import {OfferCard} from '../components/OfferCard.tsx';
+import {useOutletContext} from 'react-router-dom';
+import {OffersList} from '../components/OffersList.tsx';
+import {Offer, Offers} from '../types/offer.ts';
+import {useState} from 'react';
 
 export function MainPage() {
+  const [, setActiveOffer] = useState<Offer | null>(null);
+  const offers = useOutletContext<Offers>();
+
+  const handleCardHover = (offer: Offer | null) => {
+    setActiveOffer(offer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -90,13 +100,8 @@ export function MainPage() {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-              </div>
+
+              <OffersList offers={offers} onCardHover={handleCardHover}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

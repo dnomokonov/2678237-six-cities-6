@@ -1,7 +1,12 @@
 import {Outlet} from 'react-router-dom';
+import {Offers} from './types/offer.ts';
 
-export default function App() {
+type AppProps = {
+  offers: Offers;
+}
+
+export default function App({offers}: AppProps) {
   return (
-    <Outlet />
+    <Outlet context={offers}/>
   );
 }
