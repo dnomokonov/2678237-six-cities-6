@@ -6,7 +6,8 @@ export function ReviewForm() {
     rating: DEFAULT_RATING,
     review: ''
   });
-  const [isValid, setIsValid] = useState(false);
+
+  const isValidForm = formData.rating > DEFAULT_RATING && formData.review.length >= MIN_LENGTH;
 
   const starsRating = {
     'perfect': 5,
@@ -19,13 +20,11 @@ export function ReviewForm() {
   const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setFormData({...formData, rating: value});
-    setIsValid(value > DEFAULT_RATING && formData.review.length >= MIN_LENGTH);
   };
 
   const handleReviewChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setFormData({...formData, review: value});
-    setIsValid(value.length >= MIN_LENGTH && formData.rating > DEFAULT_RATING);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -71,7 +70,7 @@ export function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValidForm}
         >
           Submit
         </button>

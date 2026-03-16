@@ -24,4 +24,4 @@ export type Offer = {
 
 export type Offers = Offer[];
 
-export type OffersByCity = Record<Offer['city']['name'], Offers>;
+export type OffersByCity = Record<string, Offers>;
