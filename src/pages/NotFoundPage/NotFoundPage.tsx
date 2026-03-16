@@ -3,11 +3,11 @@ import styles from './notFoundPage.module.css';
 
 export function NotFoundPage() {
   return (
-    <div className={styles['not-found-block']}>
+    <div className={styles.notFoundBlock}>
       <h2>404 Not Found</h2>
       <Link
         to="/"
-        className={styles['btn-link']}
+        className={styles.btnLink}
       >
         Go to homepage
       </Link>
