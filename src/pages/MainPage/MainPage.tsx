@@ -9,6 +9,7 @@ import {AppRoute} from '../../const.ts';
 export function MainPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const offers = useOutletContext<Offers>();
+  const countOffers = offers.length | 0;
 
   const handleCardHover = (offer: Offer | null) => {
     setActiveOffer(offer);
@@ -87,7 +88,7 @@ export function MainPage() {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">3 places to stay in Amsterdam</b>
+              <b className="places__found">{countOffers} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
