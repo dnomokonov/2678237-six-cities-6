@@ -6,7 +6,7 @@ import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
+  city: City | null;
   offers: Offers;
   selectedOffer: Offer | null;
 }

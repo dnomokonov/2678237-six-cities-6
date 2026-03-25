@@ -1,19 +1,22 @@
 import {ReviewForm} from '../../components/ReviewForm/ReviewForm.tsx';
-import {Link, useOutletContext, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 import {ReviewsList} from '../../components/ReviewsList/ReviewsList.tsx';
 import {REVIEWS_MOCK} from '../../mocks/reviews.ts';
 import {Map} from '../../components/Map/Map.tsx';
 import {OffersList} from '../../components/OffersList/OffersList.tsx';
 import {useState} from 'react';
-import {Offer, Offers} from '../../types/offer.ts';
-import {AMSTERDAM_CITY} from '../../mocks/offers.ts';
+import {Offer} from '../../types/offer.ts';
+import {useSelector} from 'react-redux';
+import {selectAllOffers} from '../../store/offersSelectors.ts';
 
 export function OfferPage() : JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const offers = useOutletContext<Offers>();
+  const offers = useSelector(selectAllOffers);
+
   const { id } = useParams();
   const filteredOffers = offers.filter((offer: Offer | null) => offer?.id !== id);
+  const cityForMap = filteredOffers.length > 0 ? filteredOffers[0].city : null;
 
   const handleCardHover = (offer: Offer | null) => {
     setActiveOffer(offer);
@@ -180,7 +183,7 @@ export function OfferPage() : JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={AMSTERDAM_CITY} offers={filteredOffers} selectedOffer={activeOffer} />
+            <Map city={cityForMap} offers={filteredOffers} selectedOffer={activeOffer} />
           </section>
         </section>
         <div className="container">

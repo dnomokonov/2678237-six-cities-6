@@ -1,15 +1,27 @@
-import {Link, useOutletContext} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {OffersList} from '../../components/OffersList/OffersList.tsx';
-import {Offer, Offers} from '../../types/offer.ts';
+import {Offer} from '../../types/offer.ts';
 import {useState} from 'react';
 import {Map} from '../../components/Map/Map.tsx';
-import {AMSTERDAM_CITY} from '../../mocks/offers.ts';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, CITIES} from '../../const.ts';
+import {ListCity} from '../../components/ListCity/ListCity.tsx';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectAllOffers, selectCurrentCity} from '../../store/offersSelectors.ts';
+import {editCity} from '../../store/offersSlice.ts';
 
 export function MainPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const offers = useOutletContext<Offers>();
-  const countOffers = offers.length | 0;
+  const dispatch = useDispatch();
+
+  const currentCity = useSelector(selectCurrentCity);
+  const offers = useSelector(selectAllOffers);
+
+  const filterOffers = offers.filter((offer) => offer.city.name === currentCity);
+  const cityForMap = filterOffers.length > 0 ? filterOffers[0].city : null;
+
+  const handleCityChange = (city: string) => {
+    dispatch(editCity(city));
+  };
 
   const handleCardHover = (offer: Offer | null) => {
     setActiveOffer(offer);
@@ -50,45 +62,14 @@ export function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <ListCity cities={CITIES} selectedCity={currentCity} onCityChange={handleCityChange} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countOffers} places to stay in Amsterdam</b>
+              <b className="places__found">{filterOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -105,11 +86,11 @@ export function MainPage() {
                 </ul>
               </form>
 
-              <OffersList offers={offers} onCardHover={handleCardHover}/>
+              <OffersList offers={filterOffers} onCardHover={handleCardHover}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={AMSTERDAM_CITY} offers={offers} selectedOffer={activeOffer} />
+                <Map city={cityForMap} offers={filterOffers} selectedOffer={activeOffer} />
               </section>
             </div>
           </div>
