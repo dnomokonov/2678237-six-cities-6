@@ -1,5 +1,5 @@
 import {CardVariant, Offer} from '../../types/offer.ts';
-import {getRatingPercent} from '../../utils.ts';
+import {getRatingPercent} from '../../utils/utils.ts';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 
