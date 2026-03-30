@@ -7,12 +7,11 @@ import {NotFoundPage} from '../pages/NotFoundPage/NotFoundPage.tsx';
 import PrivateRoute from './privateRoute.tsx';
 import {AppRoute, AuthorizationStatus} from '../const.ts';
 import {FavoritesPage} from '../pages/FavoritesPage/FavoritesPage.tsx';
-import {Offers} from '../types/offer.ts';
 
-const getRouter = (offers: Offers) => createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: AppRoute.Root,
-    element: <App offers={offers}/>,
+    element: <App/>,
     errorElement: <NotFoundPage/>,
     children: [
       {
@@ -38,4 +37,4 @@ const getRouter = (offers: Offers) => createBrowserRouter([
   },
 ]);
 
-export default getRouter;
+export default router;

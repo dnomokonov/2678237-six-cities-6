@@ -16,3 +16,5 @@ export const MIN_LENGTH : number = 50;
 
 export const URL_MARKER_DEFAULT = 'public/img/pin.svg';
 export const URL_MARKER_CURRENT = 'public/img/pin-active.svg';
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

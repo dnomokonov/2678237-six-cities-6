@@ -1,13 +1,4 @@
-import {City, Offers} from '../types/offer.ts';
-
-export const AMSTERDAM_CITY : City = {
-  name: 'Amsterdam',
-  location: {
-    latitude: 52.37914938496378,
-    longitude: 4.900377537499948,
-    zoom: 12,
-  },
-};
+import {Offers} from '../types/offer.ts';
 
 export const offers: Offers = [
   {
@@ -102,4 +93,73 @@ export const offers: Offers = [
     isPremium: true,
     rating: 3.8,
   },
+  {
+    id: 'f2d4e1a0-3b6c-4d5e-8f9a-1c2b3d4e5f6g',
+    title: 'Cozy Studio in Montmartre',
+    type: 'apartment',
+    price: 220,
+    previewImage: 'https://14.design.htmlacademy.pro/static/hotel/3.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.35222,
+        zoom: 12,
+      },
+    },
+    location: {
+      latitude: 48.885707,
+      longitude: 2.337072,
+      zoom: 16,
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.5,
+  },
+  {
+    id: 'b7c1a9d8-e6f5-4321-a0b1-c2d3e4f5g6h7',
+    title: 'Modern Room near Cathedral',
+    type: 'room',
+    price: 85,
+    previewImage: 'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.93753,
+        longitude: 6.960279,
+        zoom: 12,
+      },
+    },
+    location: {
+      latitude: 50.941278,
+      longitude: 6.958281,
+      zoom: 16,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.8,
+  },
+  {
+    id: 'd1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5g',
+    title: 'Industrial Loft',
+    type: 'hotel',
+    price: 310,
+    previewImage: 'https://14.design.htmlacademy.pro/static/hotel/12.jpg',
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.85034,
+        longitude: 4.35171,
+        zoom: 12,
+      },
+    },
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 16,
+    },
+    isFavorite: true,
+    isPremium: true,
+    rating: 4.2,
+  }
 ];

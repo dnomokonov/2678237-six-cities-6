@@ -1,12 +1,17 @@
 import {Outlet} from 'react-router-dom';
-import {Offers} from './types/offer.ts';
+import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
+import {setOffers} from './store/offersSlice.ts';
+import {offers} from './mocks/offers.ts';
 
-type AppProps = {
-  offers: Offers;
-}
+export default function App() {
+  const dispatch = useDispatch();
 
-export default function App({offers}: AppProps) {
+  useEffect(() => {
+    dispatch(setOffers(offers));
+  }, [dispatch]);
+
   return (
-    <Outlet context={offers}/>
+    <Outlet />
   );
 }

@@ -1,10 +1,12 @@
-import {Link, useOutletContext} from 'react-router-dom';
-import {Offers, OffersByCity} from '../../types/offer.ts';
+import {Link} from 'react-router-dom';
+import {OffersByCity} from '../../types/offer.ts';
 import {AppRoute} from '../../const.ts';
 import {FavoritesList} from '../../components/FavoritesList/FavoritesList.tsx';
+import {useSelector} from 'react-redux';
+import {selectAllOffers} from '../../store/offersSelectors.ts';
 
 export function FavoritesPage() {
-  const offers = useOutletContext<Offers>();
+  const offers = useSelector(selectAllOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   const offersByCity = favoriteOffers.reduce<OffersByCity>((acc, offer) => {
