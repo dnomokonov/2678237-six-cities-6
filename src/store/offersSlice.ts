@@ -1,11 +1,11 @@
-import {Offer} from '../types/offer.ts';
+import {Offers} from '../types/offer.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SortType} from '../types/sort.ts';
 
 type OfferState = {
   currentCity: string;
   currentSortOption: SortType;
-  allOffers: Offer[];
+  allOffers: Offers;
 };
 
 const offersSlice = createSlice({
@@ -15,7 +15,7 @@ const offersSlice = createSlice({
     editCity(state, action : PayloadAction<string>) {
       state.currentCity = action.payload;
     },
-    setOffers(state, action : PayloadAction<Offer[]>) {
+    setOffers(state, action : PayloadAction<Offers>) {
       state.allOffers = action.payload;
     },
     setSortOption(state, action : PayloadAction<SortType>) {
