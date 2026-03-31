@@ -1,24 +1,29 @@
-import {Offer} from '../types/offer.ts';
+import {Offers} from '../types/offer.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {SortType} from '../types/sort.ts';
 
 type OfferState = {
   currentCity: string;
-  allOffers: Offer[];
+  currentSortOption: SortType;
+  allOffers: Offers;
 };
 
 const offersSlice = createSlice({
   name: 'offers',
-  initialState: { currentCity: 'Amsterdam', allOffers: [] } as OfferState,
+  initialState: { currentCity: 'Amsterdam', currentSortOption: SortType.Popular, allOffers: [] } as OfferState,
   reducers: {
     editCity(state, action : PayloadAction<string>) {
       state.currentCity = action.payload;
     },
-    setOffers(state, action : PayloadAction<Offer[]>) {
+    setOffers(state, action : PayloadAction<Offers>) {
       state.allOffers = action.payload;
+    },
+    setSortOption(state, action : PayloadAction<SortType>) {
+      state.currentSortOption = action.payload;
     }
   }
 });
 
-export const {editCity, setOffers} = offersSlice.actions;
+export const {editCity, setOffers, setSortOption} = offersSlice.actions;
 export default offersSlice.reducer;
 

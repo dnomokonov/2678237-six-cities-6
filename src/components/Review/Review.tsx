@@ -1,5 +1,5 @@
 import {Comment} from '../../types/comment.ts';
-import {formatDate, getRatingPercent} from '../../utils.ts';
+import {formatDate, getRatingPercent} from '../../utils/utils.ts';
 
 interface ReviewProps {
   review: Comment;

@@ -35,6 +35,10 @@ const router = createBrowserRouter([
     path: AppRoute.Login,
     element: <LoginPage/>
   },
+  {
+    path: AppRoute.NotFound,
+    element: <NotFoundPage />
+  }
 ]);
 
 export default router;
