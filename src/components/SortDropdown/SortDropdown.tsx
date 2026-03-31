@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {SortType} from '../../types/sort.ts';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectCurrentSortOption} from '../../store/offersSelectors.ts';
@@ -6,9 +6,25 @@ import {setSortOption} from '../../store/offersSlice.ts';
 
 export function SortDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLFormElement>(null);
 
   const dispatch = useDispatch();
   const currentSortOption = useSelector(selectCurrentSortOption);
+
+  useEffect(() => {
+    const handleMouseDown = (event : MouseEvent) => {
+      const dropdown = dropdownRef.current;
+      if (dropdown && !dropdown.contains(event.target as Element)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleMouseDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, []);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -20,7 +36,7 @@ export function SortDropdown() {
   };
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" ref={dropdownRef}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={toggleOpen}>
         {currentSortOption}
