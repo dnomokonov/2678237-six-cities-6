@@ -7,7 +7,7 @@ import {setOffers, setOffersDataLoadingStatus} from './offersSlice.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
-  store: State;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
