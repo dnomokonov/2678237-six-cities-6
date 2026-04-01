@@ -9,6 +9,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectAllOffers, selectCurrentCity, selectCurrentSortOption} from '../../store/offersSelectors.ts';
 import {editCity} from '../../store/offersSlice.ts';
 import {SortDropdown} from '../../components/SortDropdown/SortDropdown.tsx';
+import {fetchOffersAction} from '../../store/api-actions.ts';
+import store from '../../store';
+
+store.dispatch(fetchOffersAction());
 
 export function MainPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
