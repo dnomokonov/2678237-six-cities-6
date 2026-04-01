@@ -4,6 +4,9 @@ import {RouterProvider} from 'react-router-dom';
 import store from './store';
 import {Provider} from 'react-redux';
 import router from './routes/router.tsx';
+import {fetchOffersAction} from './store/api-actions.ts';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

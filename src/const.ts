@@ -10,6 +10,10 @@ export enum AppRoute {
   NotFound = '/not-found',
 }
 
+export enum APIRoute {
+  OFFERS = '/offers',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
