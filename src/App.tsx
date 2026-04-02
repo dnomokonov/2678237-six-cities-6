@@ -1,18 +1,24 @@
 import {Outlet} from 'react-router-dom';
 import {useAppSelector} from './hooks';
 import {Loader} from './components/Loader/Loader.tsx';
-import {selectIsLoadingData} from './store/offersSelectors.ts';
+import {selectAuthStatus, selectIsLoadingData} from './store/offersSelectors.ts';
+import {Toaster} from 'react-hot-toast';
+import {AuthorizationStatus} from './const.ts';
 
 export default function App() {
+  const authStatus = useAppSelector(selectAuthStatus);
   const isOffersDataLoading = useAppSelector(selectIsLoadingData);
 
-  if (isOffersDataLoading) {
+  if (authStatus === AuthorizationStatus.UNKNOWN || isOffersDataLoading) {
     return (
       <Loader />
     );
   }
 
   return (
-    <Outlet />
+    <>
+      <Outlet />
+      <Toaster />
+    </>
   );
 }

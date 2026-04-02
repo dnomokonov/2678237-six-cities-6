@@ -5,7 +5,7 @@ import {LoginPage} from '../pages/LoginPage/LoginPage.tsx';
 import {OfferPage} from '../pages/OfferPage/OfferPage.tsx';
 import {NotFoundPage} from '../pages/NotFoundPage/NotFoundPage.tsx';
 import PrivateRoute from './privateRoute.tsx';
-import {AppRoute, AuthorizationStatus} from '../const.ts';
+import {AppRoute} from '../const.ts';
 import {FavoritesPage} from '../pages/FavoritesPage/FavoritesPage.tsx';
 
 const router = createBrowserRouter([
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       {
         path: AppRoute.Favorites,
         element:
-          <PrivateRoute authStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute>
             <FavoritesPage/>
           </PrivateRoute>
       }

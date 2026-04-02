@@ -35,6 +35,11 @@ const offersSlice = createSlice({
   },
 });
 
-export const {editCity, setOffers, setOffersDataLoadingStatus, setSortOption} = offersSlice.actions;
+export const {
+  editCity,
+  setOffers,
+  setOffersDataLoadingStatus,
+  setSortOption,
+} = offersSlice.actions;
 export default offersSlice.reducer;
 

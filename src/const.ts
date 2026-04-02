@@ -12,11 +12,13 @@ export enum AppRoute {
 
 export enum APIRoute {
   OFFERS = '/offers',
+  LOGIN = '/login',
 }
 
 export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
+  AUTH = 'AUTH',
+  NO_AUTH = 'NO_AUTH',
+  UNKNOWN = 'UNKNOWN',
 }
 
 export const MAX_RATING : number = 5;
