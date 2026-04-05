@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks';
-import {selectAuthStatus} from '../../store/offersSelectors.ts';
+import {selectAuthStatus} from '../../store/selectors';
 
 export function Header(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);

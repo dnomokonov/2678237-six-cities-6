@@ -4,11 +4,11 @@ import {useMemo, useState} from 'react';
 import {Map} from '../../components/Map/Map.tsx';
 import {CITIES, sortingMap} from '../../const.ts';
 import {ListCity} from '../../components/ListCity/ListCity.tsx';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectAllOffers, selectCurrentCity, selectCurrentSortOption} from '../../store/offersSelectors.ts';
-import {editCity} from '../../store/offersSlice.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {selectAllOffers, selectCurrentCity, selectCurrentSortOption} from '../../store/selectors';
+import {editCity} from '../../store/slices/offerSlice.ts';
 import {SortDropdown} from '../../components/SortDropdown/SortDropdown.tsx';
-import {fetchOffersAction} from '../../store/api-actions.ts';
+import {fetchOffersAction} from '../../store/actions/apiActions.ts';
 import store from '../../store';
 import {Header} from '../../components/Header/Header.tsx';
 
@@ -16,11 +16,11 @@ store.dispatch(fetchOffersAction());
 
 export function MainPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentCity = useSelector(selectCurrentCity);
-  const currentSortOption = useSelector(selectCurrentSortOption);
-  const offers = useSelector(selectAllOffers);
+  const currentCity = useAppSelector(selectCurrentCity);
+  const currentSortOption = useAppSelector(selectCurrentSortOption);
+  const offers = useAppSelector(selectAllOffers);
 
   const [sortedOffers, cityForMap] = useMemo(() => {
     const filteredOffers = offers.filter((offer) => offer.city.name === currentCity);

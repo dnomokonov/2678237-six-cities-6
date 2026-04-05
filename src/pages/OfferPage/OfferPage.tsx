@@ -7,8 +7,8 @@ import {Map} from '../../components/Map/Map.tsx';
 import {OffersList} from '../../components/OffersList/OffersList.tsx';
 import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offer.ts';
-import {useSelector} from 'react-redux';
-import {selectAllOffers} from '../../store/offersSelectors.ts';
+import {useAppSelector} from '../../hooks';
+import {selectAllOffers} from '../../store/selectors';
 import {Header} from '../../components/Header/Header.tsx';
 
 export function OfferPage() {
@@ -16,7 +16,7 @@ export function OfferPage() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const offers = useSelector(selectAllOffers);
+  const offers = useAppSelector(selectAllOffers);
   const currentOffer = offers.find((offer) => offer.id === id);
 
   useEffect(() => {

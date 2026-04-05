@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
 import {OffersByCity} from '../../types/offer.ts';
 import {FavoritesList} from '../../components/FavoritesList/FavoritesList.tsx';
-import {useSelector} from 'react-redux';
-import {selectAllOffers} from '../../store/offersSelectors.ts';
+import {selectAllOffers} from '../../store/selectors';
 import {Header} from '../../components/Header/Header.tsx';
+import {useAppSelector} from '../../hooks';
 
 export function FavoritesPage() {
-  const offers = useSelector(selectAllOffers);
+  const offers = useAppSelector(selectAllOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   const offersByCity = favoriteOffers.reduce<OffersByCity>((acc, offer) => {

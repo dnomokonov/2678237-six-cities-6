@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from '../const.ts';
+import {AuthorizationStatus} from '../../const.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type AuthState = {

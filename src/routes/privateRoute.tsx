@@ -1,14 +1,14 @@
 import {AuthorizationStatus} from '../const.ts';
 import {Navigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import {selectAuthStatus} from '../store/offersSelectors.ts';
+import {useAppSelector} from '../hooks';
+import {selectAuthStatus} from '../store/selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;
 }
 
 function PrivateRoute(props: PrivateRouteProps) : JSX.Element {
-  const authStatus = useSelector(selectAuthStatus);
+  const authStatus = useAppSelector(selectAuthStatus);
   const {children} = props;
 
   return (

@@ -4,7 +4,7 @@ import {RouterProvider} from 'react-router-dom';
 import store from './store';
 import {Provider} from 'react-redux';
 import router from './routes/router.tsx';
-import {checkAuthAction} from './store/api-actions.ts';
+import {checkAuthAction} from './store/actions/apiActions.ts';
 
 store.dispatch(checkAuthAction());
 

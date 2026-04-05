@@ -1,10 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.ts';
+import {AppDispatch, State} from '../../types/state.ts';
 import {AxiosInstance} from 'axios';
-import {Offers} from '../types/offer.ts';
-import {APIRoute, AuthorizationStatus} from '../const.ts';
-import {setOffers, setOffersDataLoadingStatus} from './offersSlice.ts';
-import {requireAuth} from './authSlice.ts';
+import {Offers} from '../../types/offer.ts';
+import {APIRoute, AuthorizationStatus} from '../../const.ts';
+import {setOffers, setOffersDataLoadingStatus} from '../slices/offerSlice.ts';
+import {requireAuth} from '../slices/authSlice.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

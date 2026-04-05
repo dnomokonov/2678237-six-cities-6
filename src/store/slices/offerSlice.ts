@@ -1,6 +1,6 @@
-import {Offers} from '../types/offer.ts';
+import {SortType} from '../../types/sort.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SortType} from '../types/sort.ts';
+import {Offers} from '../../types/offer.ts';
 
 type OfferState = {
   currentCity: string;
