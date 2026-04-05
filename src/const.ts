@@ -1,6 +1,7 @@
 import {SortType} from './types/sort.ts';
 import {Offers} from './types/offer.ts';
 import {sortByPriceAsc, sortByPriceDesc, sortByRatingDesc} from './utils/sortUtils.ts';
+import {User} from './types/user.ts';
 
 export enum AppRoute {
   Root = '/',
@@ -13,6 +14,7 @@ export enum AppRoute {
 export enum APIRoute {
   OFFERS = '/offers',
   LOGIN = '/login',
+  LOGOUT = '/logout',
 }
 
 export enum AuthorizationStatus {
@@ -37,3 +39,10 @@ export const sortingMap : Record<SortType, (offers: Offers) => Offers> = {
   [SortType.TopRated]: (offers) => sortByRatingDesc(offers),
 };
 
+export const DEFAULT_USER: User = {
+  name: '',
+  avatarUrl: '',
+  email: '',
+  isPro: false,
+  token: '',
+};
