@@ -1,8 +1,9 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {selectAuthStatus, selectUserData} from '../../store/selectors';
+import {selectAuthStatus, selectCountFavorites, selectUserData} from '../../store/selectors';
 import {logoutAction} from '../../store/actions/apiActions.ts';
+import {useSelector} from 'react-redux';
 
 export function Header(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
@@ -10,6 +11,7 @@ export function Header(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const {email} = useAppSelector(selectUserData);
+  const countFavorites = useSelector(selectCountFavorites);
 
   return (
     <header className="header">
@@ -32,7 +34,7 @@ export function Header(): JSX.Element {
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">{email}</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{countFavorites}</span>
                     </a>
                   </li>
                   <li className="header__nav-item">

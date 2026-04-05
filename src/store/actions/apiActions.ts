@@ -4,7 +4,7 @@ import {AxiosInstance} from 'axios';
 import {Offers} from '../../types/offer.ts';
 import {APIRoute, AuthorizationStatus, DEFAULT_USER} from '../../const.ts';
 import {setOffers, setOffersDataLoadingStatus} from '../slices/offerSlice.ts';
-import {requireAuth, setUser} from '../slices/authSlice.ts';
+import {requireAuth, setFavorite, setUser} from '../slices/authSlice.ts';
 import {AuthData} from '../../types/auth.ts';
 import {User} from '../../types/user.ts';
 import {removeToken, saveToken} from '../../services/token.ts';
@@ -39,6 +39,18 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   }
 );
 
+export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(APIRoute.FAVORITE);
+    dispatch(setFavorite(data));
+  }
+);
+
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
@@ -50,6 +62,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(data.token);
     dispatch(setUser(data));
     dispatch(requireAuth(AuthorizationStatus.AUTH));
+    dispatch(fetchFavoritesAction());
   }
 );
 
@@ -66,4 +79,3 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(setUser(DEFAULT_USER));
   }
 );
-
