@@ -15,6 +15,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,
   [StatusCodes.NOT_FOUND]: true,
+  [StatusCodes.CREATED]: true,
 };
 
 const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
@@ -38,7 +39,13 @@ export const createApi = () : AxiosInstance => {
   );
 
   api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+      if (StatusCodeMapping[response.status]) {
+        toast.success('Login successfully!');
+      }
+
+      return response;
+    },
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = error.response.data;
