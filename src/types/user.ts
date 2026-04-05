@@ -5,8 +5,3 @@ export type User = {
   email: string;
   token: string;
 }
-
-export type AuthUser = {
-  email: string;
-  password: string;
-}
