@@ -1,7 +1,8 @@
-import {AuthorizationStatus, DEFAULT_USER} from '../../const.ts';
+import {AuthorizationStatus} from '../../const.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {User} from '../../types/user.ts';
 import {Offers} from '../../types/offer.ts';
+import {getUser} from '../../services/storage.ts';
 
 type AuthState = {
   authorizationStatus: AuthorizationStatus;
@@ -11,7 +12,7 @@ type AuthState = {
 
 const initialState : AuthState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  user: DEFAULT_USER,
+  user: getUser(),
   favorites: [],
 };
 
