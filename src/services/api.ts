@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-import {getToken} from './token.ts';
+import {getToken} from './storage.ts';
 import {StatusCodes} from 'http-status-codes';
 import toast from 'react-hot-toast';
 

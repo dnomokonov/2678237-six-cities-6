@@ -7,7 +7,7 @@ import {setOffers, setOffersDataLoadingStatus} from '../slices/offerSlice.ts';
 import {requireAuth, setFavorite, setUser} from '../slices/authSlice.ts';
 import {AuthData} from '../../types/auth.ts';
 import {User} from '../../types/user.ts';
-import {removeToken, saveToken} from '../../services/token.ts';
+import {removeToken, removeUser, saveToken, saveUser} from '../../services/storage.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -60,6 +60,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<User>(APIRoute.LOGIN, {email, password});
     saveToken(data.token);
+    saveUser(data);
     dispatch(setUser(data));
     dispatch(requireAuth(AuthorizationStatus.AUTH));
     dispatch(fetchFavoritesAction());
@@ -75,6 +76,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.LOGOUT);
     removeToken();
+    removeUser();
     dispatch(requireAuth(AuthorizationStatus.NO_AUTH));
     dispatch(setUser(DEFAULT_USER));
   }
