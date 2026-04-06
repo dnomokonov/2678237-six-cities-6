@@ -24,6 +24,21 @@ export type Offer = {
   previewImage: string;
 }
 
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type OfferById = Omit<Offer, 'previewImage'> & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+};
+
 export type Offers = Offer[];
 
 export type OffersByCity = Record<string, Offers>;

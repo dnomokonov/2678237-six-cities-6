@@ -1,11 +1,12 @@
 import {SortType} from '../../types/sort.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Offers} from '../../types/offer.ts';
+import {OfferById, Offers} from '../../types/offer.ts';
 
 type OfferState = {
   currentCity: string;
   currentSortOption: SortType;
   allOffers: Offers;
+  offerById: OfferById | null;
   isOffersDataLoading: boolean;
 };
 
@@ -13,6 +14,7 @@ const initialState : OfferState = {
   currentCity: 'Amsterdam',
   currentSortOption: SortType.Popular,
   allOffers: [],
+  offerById: null,
   isOffersDataLoading: false,
 };
 
@@ -31,6 +33,9 @@ const offersSlice = createSlice({
     },
     setSortOption(state, action : PayloadAction<SortType>) {
       state.currentSortOption = action.payload;
+    },
+    setOfferById(state, action : PayloadAction<OfferById>) {
+      state.offerById = action.payload;
     }
   },
 });
@@ -40,6 +45,7 @@ export const {
   setOffers,
   setOffersDataLoadingStatus,
   setSortOption,
+  setOfferById,
 } = offersSlice.actions;
 export default offersSlice.reducer;
 
