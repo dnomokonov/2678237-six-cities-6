@@ -3,6 +3,7 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/actions/apiActions.ts';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute, regexForm} from '../../const.ts';
+import toast from 'react-hot-toast';
 
 export function LoginForm() {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -21,6 +22,7 @@ export function LoginForm() {
       }));
 
       if (loginAction.fulfilled.match(result)) {
+        toast.success('Login successful');
         navigate(AppRoute.Root);
       }
     }
