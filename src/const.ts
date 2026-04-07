@@ -40,6 +40,8 @@ export const sortingMap : Record<SortType, (offers: Offers) => Offers> = {
   [SortType.TopRated]: (offers) => sortByRatingDesc(offers),
 };
 
+export const regexForm = '^(?=.*[a-zA-Z])(?=.*\\d).+';
+
 export const DEFAULT_USER: User = {
   name: '',
   avatarUrl: '',
