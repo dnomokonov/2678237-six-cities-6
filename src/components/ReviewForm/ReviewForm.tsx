@@ -1,21 +1,32 @@
 import {ChangeEvent, FormEvent, Fragment, useState} from 'react';
 import {DEFAULT_RATING, MIN_LENGTH} from '../../const.ts';
+import {useAppDispatch} from '../../hooks';
+import {fetchNewCommentAction} from '../../store/actions/apiActions.ts';
+import toast from 'react-hot-toast';
 
-export function ReviewForm() {
-  const [formData, setFormData] = useState({
-    rating: DEFAULT_RATING,
-    review: ''
-  });
+interface ReviewFormProps {
+  offerId: string;
+}
+
+const STARS_RATING: Record<string, number> = {
+  'perfect': 5,
+  'good': 4,
+  'not bad': 3,
+  'badly': 2,
+  'terribly': 1,
+};
+
+const INITIAL_FORM_DATA = {
+  rating: DEFAULT_RATING,
+  review: '',
+};
+
+export function ReviewForm({offerId} : ReviewFormProps) {
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+  const [isSending, setIsSending] = useState(false);
+  const dispatch = useAppDispatch();
 
   const isValidForm = formData.rating > DEFAULT_RATING && formData.review.length >= MIN_LENGTH;
-
-  const starsRating = {
-    'perfect': 5,
-    'good': 4,
-    'not bad': 3,
-    'badly': 2,
-    'terribly': 1,
-  };
 
   const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
@@ -27,15 +38,35 @@ export function ReviewForm() {
     setFormData({...formData, review: value});
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsSending(true);
+
+    const commentData = {
+      comment: formData.review,
+      rating: formData.rating,
+    };
+
+    const result = await dispatch(fetchNewCommentAction({
+      offerId,
+      commentData,
+    }));
+
+    if (fetchNewCommentAction.fulfilled.match(result)) {
+      setFormData(INITIAL_FORM_DATA);
+    } else {
+      const messageError = String(result.error.message);
+      toast.error(messageError);
+    }
+
+    setIsSending(false);
   };
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit} method="post">
+    <form className="reviews__form form" onSubmit={(evt) => void handleSubmit(evt)} method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {Object.entries(starsRating).map(([title, stars]) => (
+        {Object.entries(STARS_RATING).map(([title, stars]) => (
           <Fragment key={stars}>
             <input
               className="form__rating-input visually-hidden"
@@ -70,9 +101,9 @@ export function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValidForm}
+          disabled={!isValidForm || isSending}
         >
-          Submit
+          {isSending ? 'Sending...' : 'Submit'}
         </button>
       </div>
     </form>

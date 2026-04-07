@@ -158,7 +158,7 @@ export function OfferPage() {
               <section className="offer__reviews reviews">
                 <ReviewsList reviews={commentsOffer} />
                 {isAuthenticated && (
-                  <ReviewForm />
+                  <ReviewForm offerId={id!}/>
                 )}
               </section>
             </div>

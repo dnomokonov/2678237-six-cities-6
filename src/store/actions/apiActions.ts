@@ -14,7 +14,12 @@ import {requireAuth, setFavorite, setUser} from '../slices/authSlice.ts';
 import {AuthData} from '../../types/auth.ts';
 import {User} from '../../types/user.ts';
 import {removeToken, removeUser, saveToken, saveUser} from '../../services/storage.ts';
-import {Comments} from '../../types/comment.ts';
+import {Comment, Comments, NewComment} from '../../types/comment.ts';
+
+interface NewCommentData {
+  offerId: string;
+  commentData: NewComment;
+}
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -65,6 +70,18 @@ export const fetchCommentsAction = createAsyncThunk<void, string, {
   async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<Comments>(`${APIRoute.COMMENTS}/${offerId}`);
     dispatch(setCommentsOffer(data));
+  }
+);
+
+export const fetchNewCommentAction = createAsyncThunk<void, NewCommentData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchNewComment',
+  async ({offerId, commentData}, {dispatch, extra: api}) => {
+    await api.post<Comment>(`${APIRoute.COMMENTS}/${offerId}`, commentData);
+    dispatch(fetchCommentsAction(offerId));
   }
 );
 
