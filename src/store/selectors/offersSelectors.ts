@@ -7,3 +7,5 @@ export const selectIsLoadingData = (state: RootState) => state.offers.isDataLoad
 
 export const selectOfferById = (state: RootState) => state.offers.offerById;
 export const selectIsOfferLoading = (state: RootState) => state.offers.isOfferLoading;
+export const selectCommentsOffer = (state: RootState) => state.offers.commentsOffer;
+export const selectNearbyOffers = (state: RootState) => state.offers.nearbyOffers;

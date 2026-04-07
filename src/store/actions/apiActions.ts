@@ -3,11 +3,18 @@ import {AppDispatch, State} from '../../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {OfferById, Offers} from '../../types/offer.ts';
 import {APIRoute, AuthorizationStatus, DEFAULT_USER} from '../../const.ts';
-import {setOfferById, setOffers, setDataLoadingStatus, setOfferLoadingStatus} from '../slices/offerSlice.ts';
+import {
+  setOfferById,
+  setOffers,
+  setDataLoadingStatus,
+  setOfferLoadingStatus,
+  setCommentsOffer, setNearbyOffers
+} from '../slices/offerSlice.ts';
 import {requireAuth, setFavorite, setUser} from '../slices/authSlice.ts';
 import {AuthData} from '../../types/auth.ts';
 import {User} from '../../types/user.ts';
 import {removeToken, removeUser, saveToken, saveUser} from '../../services/storage.ts';
+import {Comments} from '../../types/comment.ts';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -46,6 +53,30 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
     const {data} = await api.get<OfferById>(`${APIRoute.OFFERS}/${offerId}`);
     dispatch(setOfferById(data));
     dispatch(setOfferLoadingStatus(false));
+  }
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchComments',
+  async (offerId, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comments>(`${APIRoute.COMMENTS}/${offerId}`);
+    dispatch(setCommentsOffer(data));
+  }
+);
+
+export const fetchNearbyOffersAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchNearbyOffers',
+  async (offerId, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(`${APIRoute.OFFERS}/${offerId}/nearby`);
+    dispatch(setNearbyOffers(data));
   }
 );
 
