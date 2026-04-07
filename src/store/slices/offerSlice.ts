@@ -7,7 +7,8 @@ type OfferState = {
   currentSortOption: SortType;
   allOffers: Offers;
   offerById: OfferById | null;
-  isOffersDataLoading: boolean;
+  isDataLoading: boolean;
+  isOfferLoading: boolean;
 };
 
 const initialState : OfferState = {
@@ -15,7 +16,8 @@ const initialState : OfferState = {
   currentSortOption: SortType.Popular,
   allOffers: [],
   offerById: null,
-  isOffersDataLoading: false,
+  isDataLoading: false,
+  isOfferLoading: false,
 };
 
 const offersSlice = createSlice({
@@ -28,24 +30,31 @@ const offersSlice = createSlice({
     setOffers(state, action : PayloadAction<Offers>) {
       state.allOffers = action.payload;
     },
-    setOffersDataLoadingStatus(state, action : PayloadAction<boolean>) {
-      state.isOffersDataLoading = action.payload;
+    setDataLoadingStatus(state, action : PayloadAction<boolean>) {
+      state.isDataLoading = action.payload;
     },
     setSortOption(state, action : PayloadAction<SortType>) {
       state.currentSortOption = action.payload;
     },
     setOfferById(state, action : PayloadAction<OfferById>) {
       state.offerById = action.payload;
-    }
-  },
+    },
+    setOfferLoadingStatus(state, action : PayloadAction<boolean>) {
+      state.isOfferLoading = action.payload;
+    },
+    resetOfferById(state) {
+      state.offerById = null;
+    },
+  }
 });
 
 export const {
   editCity,
   setOffers,
-  setOffersDataLoadingStatus,
+  setDataLoadingStatus,
   setSortOption,
   setOfferById,
+  setOfferLoadingStatus,
+  resetOfferById,
 } = offersSlice.actions;
 export default offersSlice.reducer;
-

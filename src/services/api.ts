@@ -49,7 +49,9 @@ export const createApi = () : AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = error.response.data;
-        toast.error(detailMessage.message);
+        toast.error(detailMessage.message, {
+          id: detailMessage.message,
+        });
       }
 
       throw error;

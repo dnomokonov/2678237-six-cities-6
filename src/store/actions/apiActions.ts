@@ -3,7 +3,7 @@ import {AppDispatch, State} from '../../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {OfferById, Offers} from '../../types/offer.ts';
 import {APIRoute, AuthorizationStatus, DEFAULT_USER} from '../../const.ts';
-import {setOfferById, setOffers, setOffersDataLoadingStatus} from '../slices/offerSlice.ts';
+import {setOfferById, setOffers, setDataLoadingStatus, setOfferLoadingStatus} from '../slices/offerSlice.ts';
 import {requireAuth, setFavorite, setUser} from '../slices/authSlice.ts';
 import {AuthData} from '../../types/auth.ts';
 import {User} from '../../types/user.ts';
@@ -16,9 +16,9 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
+    dispatch(setDataLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.OFFERS);
-    dispatch(setOffersDataLoadingStatus(false));
+    dispatch(setDataLoadingStatus(false));
     dispatch(setOffers(data));
   }
 );
@@ -42,8 +42,10 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
 }>(
   'data/fetchOfferById',
   async (offerId, {dispatch, extra: api}) => {
+    dispatch(setOfferLoadingStatus(true));
     const {data} = await api.get<OfferById>(`${APIRoute.OFFERS}/${offerId}`);
     dispatch(setOfferById(data));
+    dispatch(setOfferLoadingStatus(false));
   }
 );
 

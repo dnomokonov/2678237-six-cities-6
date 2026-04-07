@@ -1,29 +1,47 @@
 import {ReviewForm} from '../../components/ReviewForm/ReviewForm.tsx';
 import {useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
 import {ReviewsList} from '../../components/ReviewsList/ReviewsList.tsx';
 import {REVIEWS_MOCK} from '../../mocks/reviews.ts';
 import {Map} from '../../components/Map/Map.tsx';
 import {OffersList} from '../../components/OffersList/OffersList.tsx';
 import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offer.ts';
-import {useAppSelector} from '../../hooks';
-import {selectAllOffers} from '../../store/selectors';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {selectAllOffers, selectIsOfferLoading, selectOfferById} from '../../store/selectors';
 import {Header} from '../../components/Header/Header.tsx';
+import {fetchOfferByIdAction} from '../../store/actions/apiActions.ts';
+import {resetOfferById} from '../../store/slices/offerSlice.ts';
+import {Loader} from '../../components/Loader/Loader.tsx';
+import {AppRoute} from '../../const.ts';
 
 export function OfferPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { id } = useParams();
   const offers = useAppSelector(selectAllOffers);
-  const currentOffer = offers.find((offer) => offer.id === id);
+  const currentOffer = useAppSelector(selectOfferById);
+  const isLoading = useAppSelector(selectIsOfferLoading);
 
   useEffect(() => {
-    if (!currentOffer) {
-      navigate(AppRoute.NotFound);
+    if (id) {
+      dispatch(fetchOfferByIdAction(id))
+        .unwrap()
+        .catch(() => {
+          navigate(AppRoute.NotFound);
+        });
     }
-  }, [currentOffer, navigate]);
+
+    return () => {
+      dispatch(resetOfferById());
+    };
+  }, [id, dispatch, navigate]);
+
+  if (isLoading || !currentOffer) {
+    return <Loader/>;
+  }
 
   const filteredOffers = offers.filter((offer: Offer) => offer.id !== id);
   const cityForMap = filteredOffers.length > 0 ? filteredOffers[0].city : null;
@@ -66,7 +84,7 @@ export function OfferPage() {
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                    Beautiful &amp; luxurious studio at great location
+                  {currentOffer.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -80,21 +98,21 @@ export function OfferPage() {
                   <span style={{width: '80%'}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                    Apartment
+                  {currentOffer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                    3 Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                    Max 4 adults
+                    Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{currentOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
