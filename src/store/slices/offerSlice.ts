@@ -1,6 +1,6 @@
-import {Offers} from '../types/offer.ts';
+import {SortType} from '../../types/sort.ts';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SortType} from '../types/sort.ts';
+import {Offers} from '../../types/offer.ts';
 
 type OfferState = {
   currentCity: string;
@@ -35,6 +35,11 @@ const offersSlice = createSlice({
   },
 });
 
-export const {editCity, setOffers, setOffersDataLoadingStatus, setSortOption} = offersSlice.actions;
+export const {
+  editCity,
+  setOffers,
+  setOffersDataLoadingStatus,
+  setSortOption,
+} = offersSlice.actions;
 export default offersSlice.reducer;
 

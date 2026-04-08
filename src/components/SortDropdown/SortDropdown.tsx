@@ -1,15 +1,15 @@
 import {useEffect, useRef, useState} from 'react';
 import {SortType} from '../../types/sort.ts';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectCurrentSortOption} from '../../store/offersSelectors.ts';
-import {setSortOption} from '../../store/offersSlice.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {selectCurrentSortOption} from '../../store/selectors';
+import {setSortOption} from '../../store/slices/offerSlice.ts';
 
 export function SortDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLFormElement>(null);
 
-  const dispatch = useDispatch();
-  const currentSortOption = useSelector(selectCurrentSortOption);
+  const dispatch = useAppDispatch();
+  const currentSortOption = useAppSelector(selectCurrentSortOption);
 
   useEffect(() => {
     const handleMouseDown = (event : MouseEvent) => {

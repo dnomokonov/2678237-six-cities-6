@@ -1,5 +1,5 @@
 import {ReviewForm} from '../../components/ReviewForm/ReviewForm.tsx';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 import {ReviewsList} from '../../components/ReviewsList/ReviewsList.tsx';
 import {REVIEWS_MOCK} from '../../mocks/reviews.ts';
@@ -7,15 +7,16 @@ import {Map} from '../../components/Map/Map.tsx';
 import {OffersList} from '../../components/OffersList/OffersList.tsx';
 import {useEffect, useState} from 'react';
 import {Offer} from '../../types/offer.ts';
-import {useSelector} from 'react-redux';
-import {selectAllOffers} from '../../store/offersSelectors.ts';
+import {useAppSelector} from '../../hooks';
+import {selectAllOffers} from '../../store/selectors';
+import {Header} from '../../components/Header/Header.tsx';
 
 export function OfferPage() {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const offers = useSelector(selectAllOffers);
+  const offers = useAppSelector(selectAllOffers);
   const currentOffer = offers.find((offer) => offer.id === id);
 
   useEffect(() => {
@@ -33,35 +34,7 @@ export function OfferPage() {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={AppRoute.Root} className="header__logo-link">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link to='#' className="header__nav-link header__nav-link--profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link to={AppRoute.Root} className="header__nav-link">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
