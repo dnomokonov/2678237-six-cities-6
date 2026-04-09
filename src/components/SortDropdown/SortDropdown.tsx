@@ -38,14 +38,22 @@ export function SortDropdown() {
   return (
     <form className="places__sorting" action="#" method="get" ref={dropdownRef}>
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={toggleOpen}>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={toggleOpen}
+        data-testid="current-sort-type"
+      >
         {currentSortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       {isOpen && (
-        <ul className="places__options places__options--custom places__options--opened">
+        <ul
+          className="places__options places__options--custom places__options--opened"
+          data-testid="sort-options-list"
+        >
           {Object.entries(SortType).map(([key, value]) => (
             <li
               key={key}

@@ -43,7 +43,7 @@ export function OfferCard({offer, variant = 'cities', onCardHover} : OfferCardPr
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <b className="place-card__price-value" data-testid="card-price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
@@ -60,9 +60,9 @@ export function OfferCard({offer, variant = 'cities', onCardHover} : OfferCardPr
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
+        <div className="place-card__rating rating" data-testid="place-card-rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: ratingPercent}}></span>
+            <span style={{width: ratingPercent}}>{offer.rating}</span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
